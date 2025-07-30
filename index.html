@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kiki Mango Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body, input {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+    }
+
+    .top-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #005ec6;
+      padding: 10px 20px;
+      color: white;
+      flex-wrap: wrap;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-letter {
+      font-size: 36px;
+      font-weight: bold;
+      color: gold;
+      margin-right: 10px;
+      background: white;
+      padding: 5px 12px;
+      border-radius: 50%;
+    }
+
+    .brand-name {
+      font-size: 24px;
+    }
+
+    .menu-section {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .menu-section button {
+      background: none;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-input {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .search-btn {
+      width: 36px;
+      height: 36px;
+      background-color: white;
+      color: #005ec6;
+      border: none;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .form-container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      color: #333;
+    }
+
+    .form-container h2 {
+      margin-top: 0;
+      color: #005ec6;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      background: #005ec6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .form-container .error {
+      color: red;
+      margin-bottom: 10px;
+    }
+
+    .account-section {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: gold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #005ec6;
+    }
+
+    .greeting {
+      color: white;
+      font-weight: 600;
+    }
+
+    .account-dropdown {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background-color: white;
+      color: #005ec6;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: none;
+      z-index: 999;
+      width: 240px;
+      font-weight: 600;
+    }
+
+    .account-dropdown .account-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .account-dropdown .account-avatar {
+      width: 48px;
+      height: 48px;
+      background-color: gold;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #005ec6;
+      font-weight: bold;
+    }
+
+    .account-dropdown .account-name {
+      font-size: 18px;
+    }
+
+    .account-dropdown .account-email {
+      font-size: 13px;
+      color: #333;
+      margin-top: -6px;
+    }
+
+    .account-dropdown hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 12px 0;
+    }
+
+    .account-dropdown a {
+      display: block;
+      padding: 8px 0;
+      color: #005ec6;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .account-dropdown a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="messageBox" style="display:none; position:fixed; top:20px; left:50%; transform:translateX(-50%); padding:12px 20px; background:white; color:#005ec6; border:2px solid #005ec6; border-radius:8px; font-weight:600; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.1);"></div>
+
+  <!-- Top Bar -->
+  <div class="top-bar" id="topBar">
+    <div class="logo-section">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="color: gold; font-size: 22px; line-height: 1;">★</div>
+        <div class="logo-letter">K</div>
+      </div>
+      <div class="brand-name">Kiki Mango Shop</div>
+    </div>
+
+    <div class="menu-section">
+      <button>Home</button>
+      <button>Store</button>
+      <button>Tasks</button>
+      <button>Messages</button>
+      <button>Profile</button>
+    </div>
+
+    <div class="search-container">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search...">
+      <button class="search-btn" onclick="searchItem()">🔍</button>
+    </div>
+
+    <div class="account-section" id="accountSection">
+      <!-- Logged in user will be inserted here -->
+    </div>
+  </div>
+
+  <!-- Sign Up Form -->
+  <div class="form-container" id="signupForm">
+    <h2>Sign Up</h2>
+    <div class="form-group">
+      <input type="email" id="signupEmail" placeholder="Email" />
+    </div>
+    <div class="form-group">
+      <input type="password" id="signupPassword" placeholder="Password" />
+    </div>
+    <div class="form-group">
+      <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+    </div>
+    <div class="form-group">
+      <button onclick="googleSignUp()">Continue with Google</button>
+      <button onclick="facebookSignUp()">Continue with Facebook</button>
+      <button onclick="passkeySignUp()">Continue with Passkey</button>
+    </div>
+    <div class="error" id="signupError"></div>
+    <button onclick="handleSignup()">Create Account</button>
+  </div>
+
+  <script>
+    function showMessage(msg, type = 'info') {
+      const box = document.getElementById('messageBox');
+      box.textContent = msg;
+      box.style.borderColor = type === 'error' ? 'red' : '#005ec6';
+      box.style.color = type === 'error' ? 'red' : '#005ec6';
+      box.style.display = 'block';
+      setTimeout(() => {
+        box.style.display = 'none';
+      }, 3000);
+    }
+
+    function handleSignup() {
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      if (!email || !password) {
+        showMessage('Please enter both email and password.', 'error');
+        return;
+      }
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('signedUp', 'true');
+      renderLoggedIn();
+      showMessage('You have successfully signed up!', 'success');
+    }
+
+    function renderLoggedIn() {
+      const userEmail = localStorage.getItem('userEmail');
+      const name = userEmail ? userEmail.split('@')[0] : 'User';
+
+      document.getElementById('signupForm').style.display = 'none';
+      document.getElementById('topBar').style.display = 'flex';
+
+      const accountSection = document.getElementById('accountSection');
+      accountSection.innerHTML = `
+        <div class="greeting">Hello, ${name}</div>
+        <div class="user-avatar" onclick="toggleDropdown()">${name.charAt(0).toUpperCase()}</div>
+        <div class="account-dropdown" id="accountDropdown">
+          <div class="account-header">
+            <div class="account-avatar">${name.charAt(0).toUpperCase()}</div>
+            <div>
+              <div class="account-name">${name}</div>
+              <div class="account-email">${userEmail}</div>
+            </div>
+          </div>
+          <hr>
+          <a href="#">Settings</a>
+          <a href="#">Dashboard</a>
+          <hr>
+          <a href="#" onclick="logout()">Sign Out</a>
+        </div>
+      `;
+    }
+
+    function toggleDropdown() {
+      const dropdown = document.getElementById('accountDropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function logout() {
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('signedUp');
+      location.reload();
+    }
+
+    function forgotPassword() {
+      showMessage("Redirecting to password recovery page...");
+    }
+
+    function googleSignUp() {
+      showMessage("Simulated Google Sign-In");
+    }
+
+    function facebookSignUp() {
+      showMessage("Simulated Facebook Sign-In");
+    }
+
+    function passkeySignUp() {
+      showMessage("Simulated Passkey Sign-In");
+    }
+
+    function searchItem() {
+      const val = document.getElementById('searchInput').value;
+      if (!val.trim()) {
+        showMessage("Please type something to search.", "error");
+        return;
+      }
+      showMessage("You searched for: " + val);
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem('signedUp') === 'true') {
+        renderLoggedIn();
+      }
+    };
+  </script>
+</body>
+</html>
